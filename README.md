@@ -14,6 +14,16 @@ Die [Dokumentation des Application Profiles](https://www.dcat-ap.de/def/dcatde/2
 
 "PlantUML-2-Ontology" (`p2o`) ist ein NodeJS-Kommandozeilen-Tool, das eine PlantUML-Datei einliest, an die Templates übergibt und das Ergebnis in den gewünschten Dateien speichert.
 
+### Installation
+
+Installiert sein muss: git, NodeJS und NPM.
+
+> `git clone https://github.com/GovDataOfficial/plantuml-to-ontology.git`
+>
+> `cd plantuml-to-ontology`
+>
+> `npm install`
+
 ### Befehle
 
 > `node p2o.js <plantumlfile> [<template>...] [-e <extension>] [-o <output-dir>]`
