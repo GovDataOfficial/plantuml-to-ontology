@@ -1,0 +1,88 @@
+# Analyse Ontology
+    
+## Ontology: Warnings
+
+{{#if warnings}}
+Number | Warning
+------ | ----------------------------------------------------
+{{#each warnings}}{{add @index 1}} | {{{this}}}
+{{/each}}
+{{else}}
+No global warnings.
+{{/if}}
+
+***
+
+## Ontology: Existig Classes
+
+{{#if class_names}}
+Number | Class Name
+------ | ----------------------------------------------------
+{{#each (sort class_names)}}{{add @index 1}} | {{{this}}}
+{{/each}}
+{{else}}
+No classes found.
+{{/if}}
+
+***
+
+## Classes: Existing Attribute Names
+
+Attributes are statements which were made by using the '@-mechanism. They can be RDF-statements, but also can be additional information, for anotating the class.
+Attributes will not get rendered by PlantUML.
+
+
+{{#if class_attribute_names}}
+Number | Attribute Name
+------ | ----------------------------------------------------
+{{#each (sort class_attribute_names)}}{{add @index 1}} | {{{this}}}
+{{/each}}
+{{else}}
+No attributes in classes.
+{{/if}}
+
+***
+
+## Classes: Existing Predicates
+
+Predicates are RDF-statements, which were defined in the PlantUML syntax. Therefor they will be rendered by PlantUML.
+
+
+{{#if predicate_names}}
+Number | Predicate Name
+------ | ----------------------------------------------------
+{{#each (sort predicate_names)}}{{add @index 1}} | {{{this}}}
+{{/each}}
+{{else}}
+No predicates in classes.
+{{/if}}
+
+***
+
+## Predicates: Existing Attributes
+
+Attributes are statements which were made by using the '@-mechanism. They can be RDF-statements, but also can be additional information, for anotating the predicate.
+Attributes will not get rendered by PlantUML.
+
+
+{{#if predicate_attribute_names}}
+Number | Attribute Name
+------ | ----------------------------------------------------
+{{#each (sort predicate_attribute_names)}}{{add @index 1}} | {{{this}}}
+{{/each}}
+{{else}}
+No attributes in predicates.
+{{/if}}
+
+***
+
+## Ontology: Ignores Lines
+
+{{#if rest}}
+LineNr | Line
+------ | ----------------------------------------------------
+{{#each rest}}{{@key}} | {{{this}}}
+{{/each}}
+{{else}}
+No ignored lines.
+{{/if}}

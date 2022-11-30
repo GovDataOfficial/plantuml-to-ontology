@@ -1,0 +1,19 @@
+@startuml
+
+hide class circle
+skinparam ClassBorderColor black
+skinparam ArrowColor black
+skinparam BorderColor black
+
+class "ex:MainClass" <<mandatory>> {
+    <<mandatory>> dct:title ~> rdfs:Literal [1..*]
+        '@ rdfs:comment = Kommentar zu dct:title als Prädikat von ex:MainClass
+}
+'@ rdfs:label = Label von ex:MainClass
+
+
+"ex:MainClass" -right-> "1..*" "ex:OtherClass" : <<mandatory>> ex:uses
+    '@ rdfs:comment = Attribute können mehrfach vorkommen.
+    '@ rdfs:comment = So können z.B. Zeilenumbrücke in Beschreibungen dargestellt werden.
+
+@enduml

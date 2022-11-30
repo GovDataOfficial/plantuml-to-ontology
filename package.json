@@ -1,0 +1,27 @@
+{
+  "name": "plantuml-to-ontology",
+  "version": "1.0.0",
+  "description": "Wandelt ein (mit gewissen Einschränkungen und Erweiterungen versehenes) PlantUML-Klassendiagramm in verschiedene Artefakte z.B. einer Ontologie um.",
+  "main": "p2o.js",
+  "files": [
+    "./src/"
+  ],
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "plantuml",
+    "linked",
+    "data",
+    "rdf",
+    "respec",
+    "peggyjs"
+  ],
+  "author": "]init[ AG für GovData",
+  "license": "CC BY 4.0 ]init[ AG für GovData",
+  "dependencies": {
+    "handlebars": "^4.7.7",
+    "peggy": "^2.0.1",
+    "underscore": "^1.13.6"
+  }
+}

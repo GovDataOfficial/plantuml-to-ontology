@@ -1,0 +1,15 @@
+@startuml
+
+hide class circle
+skinparam ClassBorderColor black
+skinparam ArrowColor black
+skinparam BorderColor black 
+skinparam linetype ortho
+
+class "ex:MainClass" <<mandatory>> {
+    <<mandatory>> dct:title ~> rdfs:Literal [1..*]
+    <<recommended>> dct:modified ~> rdfs:Literal [0..1]
+    <<optional>> ex:owns ~> ex:MainClass [0..1]
+}
+
+@enduml

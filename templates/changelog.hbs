@@ -1,0 +1,26 @@
+{{#each (filterHasAttribute classes "rdfs:label")}}
+{{#if (or (lookup attributes "adms:versionNotes") (filterHasAttribute predicates "adms:versionNotes")) ~}}
+### Klasse: {{lookup attributes "rdfs:label"}}
+
+Auf Ebene der Klasse [{{lookup attributes "rdfs:label"}}]({{lookup attributes "_:internalLink"}}) (`{{name}}`) gibt es 
+{{#if (lookup attributes "adms:versionNotes")}}folgende Änderungen zur Vorversion:
+
+> {{join (lookup attributes "adms:versionNotes") "<br>"}}
+{{else}}keine Änderungen zur Vorversion.
+{{/if}}
+
+{{#if (filterHasAttribute predicates "adms:versionNotes") }}
+Bei ihren Eigenschaften gibt es folgende Änderungen zur Vorversion:
+
+| Eigenschaft           | Änderungen                      |
+|:----------------------|:--------------------------------|
+{{#each (filterHasAttribute predicates "adms:versionNotes") ~}}
+| [{{lookup attributes "rdfs:label"}}](#{{lookup attributes "_:internalLink"}}) (`{{name}}`) | {{join (lookup attributes "adms:versionNotes") "<br>"}} | 
+{{/each ~}}
+{{else}}
+Bei ihren Eigenschaften gibt es keine Änderungen zur Vorversion.
+{{/if}}
+
+
+{{/if ~}}
+{{/each}}

@@ -1,0 +1,55 @@
+@startuml
+
+hide class circle
+skinparam ClassBorderColor black
+skinparam ArrowColor black
+skinparam BorderColor black 
+
+class "Ontology" {
+    classes : Object <Class> 
+    ---
+    warnings : Array <String>
+    rest : Object <Line, String>
+    ---
+    class_names : Array <String>
+    class_attribute_names : Array <String>
+    predicate_names : Array <String>
+    predicate_attribute_names : Array <String>
+}
+
+class "Class" {
+    name : String
+    requirement : String
+    color : String
+    superclassOf : String
+    subclassOf : String
+    ---
+    attributes : Object <Attribute>
+    predicates : Array <Predicate>
+    ---
+    attribute_names : Array <String>
+    predicate_names : Array <String>
+}
+
+class "Predicate" {
+    name : String
+    requirement : String
+    cardinality : Object <min, max>
+    range : String
+    ---
+    attributes : Object <Attribute>
+    ---
+    attribute_names : Array <String>
+}
+
+class "Attribute" {
+    key: String
+    value: Array <String>
+}
+
+"Ontology"   -->     "Class" : classes
+"Class"     -right-> "Predicate" : predicates
+"Class"     -up->    "Attribute" : attributes
+"Predicate" -up->    "Attribute" : attributes
+
+@enduml

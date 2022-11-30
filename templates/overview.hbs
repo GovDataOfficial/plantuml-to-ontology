@@ -1,0 +1,5 @@
+| Klasse | Verpflichtend | Empfohlen | Optional |
+| ------ | ------------- | --------- | -------- |
+{{#each (filterHasAttribute classes "rdfs:label") ~}}
+| [{{lookup attributes "rdfs:label"}}]({{lookup attributes "_:internalLink"}})<br>(`{{name}}`) |{{#each predicates}}{{#if (eq "m" (lower (char1 requirement))) ~}}[`{{name}}`](#{{lookup attributes "_:internalLink"}})<br>{{/if ~}}{{/each}} | {{#each predicates}}{{#if (eq "r" (lower (char1 requirement))) ~}}[`{{name}}`](#{{lookup attributes "_:internalLink"}})<br>{{/if ~}}{{/each}} | {{#each predicates}}{{#if (eq "o" (lower (char1 requirement))) ~}}[`{{name}}`](#{{lookup attributes "_:internalLink"}})<br>{{/if ~}}{{/each}} |
+{{/each ~}}

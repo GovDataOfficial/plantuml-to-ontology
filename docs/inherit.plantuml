@@ -1,0 +1,10 @@
+@startuml
+
+hide class circle
+skinparam ClassBorderColor black
+skinparam ArrowColor black
+skinparam BorderColor black 
+
+"ex:SubClass" -up-|> "ex:SuperClass"
+
+@enduml

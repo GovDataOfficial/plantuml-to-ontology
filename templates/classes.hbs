@@ -1,0 +1,74 @@
+{{#each (filterHasAttribute classes "rdfs:label")}}
+## Klasse: {{lookup attributes "rdfs:label"}}
+
+> | *URI der Klasse* | [`{{name}}`]({{lookup attributes "rdf:about"}})      |
+> |:-----------------|:-----------------------------------------------------|
+> | Beschreibung     | {{join (lookup attributes "rdfs:comment") "<br>"}}     |
+> | eingebunden über | {{join (lookup attributes "_:usedBy") "<br>"}}         | 
+> | Weiterführende Dokumentationen | {{join (lookup attributes "rdfs:seeAlso") "<br>"}} |
+{{#if (lookup attributes "adms:versionNotes") ~}}
+> | Änderungen zur Vorversion | {{join (lookup attributes "adms:versionNotes") "<br>"}} |
+{{/if ~}}
+{{#if (lookup attributes "_:deOriginal") ~}}
+> | Änderungen durch DCAT-AP.de | {{join (lookup attributes "_:deOriginal") "<br>"}}    |
+{{else}}
+
+{{/if ~}}
+{{#if (filterHasAttribute predicates "_:deOriginal")~}}
+<br>
+
+Die folgenden Eigenschaften wurden von DCAT-AP.de hinzugefügt oder verändert: 
+{{#each (filterHasAttribute predicates "_:deOriginal")~}}[`{{name}}`](#{{lookup attributes "_:internalLink"}}){{#unless @last}}, {{/unless}}{{/each~}}.{{/if ~}}
+
+<br>
+
+
+|                                 | Eigenschaft  | Wertebereich      | <small>Verbind&shy;lichkeit</small> | Kard. |
+|:--------------------------------|:-------------|:------------------|:------------------------------------|:-----:|
+{{#each predicates ~}}| [{{lookup attributes "rdfs:label"}}](#{{lookup attributes "_:internalLink"}}) | `{{name}}` | {{#if (lookup attributes "_:rangeOverride")~}}{{{lookup attributes "_:rangeOverride"}}}{{else ~}}[`{{range}}`]({{lookup attributes "rdfs:range"}}){{/if ~}} | <small>{{swap (lower (char1 requirement)) "o" "Optional" "r" "Empfohlen" "m" "Pflicht"}}</small> | `[{{join cardinality ".." true}}]` |
+{{/each}}
+
+
+{{#if (lookup attributes "_:resourceHeirloom")}}
+<br> Die folgenden weiteren Eigenschaften wurden von der Superklasse [`dcat:Resource`](#klasse-ressource) geerbt, werden aber nicht genauer betrachtet: {{{lookup attributes "_:resourceHeirloom"}}}
+
+
+{{/if}}
+{{#if (lookup attributes "_:datasetHeirloom")}}
+<br> Die folgenden weiteren Eigenschaften wurden von der Superklasse [`dcat:Dataset`](#klasse-datensatz) geerbt, aber nicht genauer betrachtet: {{{lookup attributes "_:datasetHeirloom"}}}
+
+
+{{/if}}
+<br>
+<hr>
+<br>
+
+{{#each predicates ~}}
+###  {{lookup ../attributes "rdfs:label"}}: {{lookup attributes "rdfs:label"}}{{#with " {#"}}{{.}}{{/with}}{{lookup attributes "_:internalLink"}}{{#with "}"}}{{.}}{{/with}}
+> | *URI*                    | [`{{name}}`]({{lookup attributes "rdf:about"}}) |
+> |:-------------------------|:-------------------------------------------|
+> | Wertebereich             | {{#if (lookup attributes "_:rangeOverride")}}{{{lookup attributes "_:rangeOverride"}}}{{else ~}}[`{{range}}`]({{lookup attributes "rdfs:range"}}){{/if}} |
+> | Verbindlichkeit          | {{swap (lower (char1 requirement)) "o" "Optional" "r" "Empfohlen" "m" "Pflicht"}} |
+> | Kardinalität             | `[{{join cardinality ".." true}}]`                    |
+> | Beschreibung             | {{{lookup attributes "rdfs:comment"}}} {{#if (lookup attributes "_:vocabularyLink")}}<br> [DCAT-AP.de macht Vorgaben zur zu verwendenden Codeliste.]({{lookup attributes "_:vocabularyLink"}}){{/if}} |
+{{#if has_rdfs_seeAlso ~}}
+> | Weiterführende Dokumentationen | {{lookup attributes "rdfs:seeAlso"}}  | 
+{{/if ~}}
+{{#if has_adms_versionNotes ~}}
+> | Änderungen zur Vorversion | {{lookup attributes "adms:versionNotes"}} | 
+{{/if ~}}
+{{#if has_deOriginal ~}}
+> | Änderungen durch DCAT-AP.de | {{lookup attributes "_:deOriginal"}} | 
+{{else}}
+
+{{/if ~}}
+
+<br>
+
+{{/each}}
+
+
+***
+
+
+{{/each}}
