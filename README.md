@@ -1,3 +1,6 @@
+[![de](https://img.shields.io/badge/lang-de-green.svg)](README.md)
+[![en](https://img.shields.io/badge/lang-en-blue.svg)](README.en.md)
+
 # PlantUML-To-Ontology
 
 Dieses Tool nimmt eine PlantUML-Datei und wandelt sie in eine andere Form um. Entwickelt wurde es, um aus der PlantUML-Datei, die das Klassenmodell von DCAT-AP.de beschreibt, eine möglichst vollständige Beschreibung des Application Profiles zu erstellen. 
@@ -10,9 +13,9 @@ Die [Dokumentation des Application Profiles](https://www.dcat-ap.de/def/dcatde/2
 
 ---
 
-## Command-Line Tool
+## Kommandozeilen-Werkzeug
 
-"PlantUML-To-Ontology" (`p2o`) ist ein NodeJS-Kommandozeilen-Tool, das eine PlantUML-Datei einliest, an die Templates übergibt und das Ergebnis in den gewünschten Dateien speichert.
+"PlantUML-To-Ontology" (`p2o`) ist ein NodeJS-Kommandozeilen-Werkzeug, das eine PlantUML-Datei einliest, an die Templates übergibt und das Ergebnis in den gewünschten Dateien speichert.
 
 ### Installation
 
@@ -32,13 +35,13 @@ Es muss mindestens die zu verwendende PlantUML-Datei angegeben werden. Ohne weit
 
 Mit `-e` kann die Dateiendung der erzeugten Dateien festgelegt werden. Default ist `.md`.
 
-Mit `-o` kann das Verzeichnis festgelegt werden, in dem die erzeugten Dateien abgelegt werden. Default ist `./output/`.
+Mit `-o` kann das Verzeichnis festgelegt werden, in dem die erzeugten Dateien abgelegt werden. Default ist `./output/`. Das Ausgabeverzeichnis muss bereits existieren, es wird nicht durch das Tool erstellt.
 
 > **Beispiele**
 > 
 > `node p2o.js examples/dcat-ap-de.plantuml`
 >  
-> `node p2o.js examples/mini.plantuml mini -e html`
+> `node p2o.js examples/mini.plantuml overview -e html`
 
 ### Analyse
 
@@ -81,7 +84,7 @@ Die Klasse besteht (von links nach rechts) aus:
 
 Unter *Prädikat* werden alle RDF-Statements verstanden, die im UML-Klassendiagramm sichtbar sind. Der Begriff kommt aus dem [Ressource Description Framework](https://www.w3.org/TR/1999/REC-rdf-syntax-19990222/#basic), dessen Aussagen als Triple von Subjekt, Prädikat und Objekt (`<s p o>`) formuliert werden.
 
-Es gibt zwei Arten von Prädikaten: Solche, die innerhalb einer Klasse definiert werden und solche, die zwei Klassen der Ontologie miteinander verbinden. Ein Prädikat **soll nicht** auf beide Arten definiert werden, da dies Fehleranfällig ist.
+Aus PlantUML ergeben sich zwei Arten von Prädikaten: Solche, die innerhalb einer Klasse definiert werden und solche, die zwei Klassen der Ontologie miteinander verbinden. Ein Prädikat **soll nicht** auf beide Arten definiert werden, da dies Fehleranfällig ist.
 
 #### Prädikate innerhalb einer Klasse
 
@@ -143,7 +146,7 @@ Attribute beziehen sich immer auf das vorangegangene Prädikat oder die vorangeg
 - **`'@`**, verpflichtend. Währen das Hochkomma (`'`) eine Zeile als PlantUML-Kommentar kennzeichnet, und damit sicherstellt, dass die Datei konform bleibt, zeigt das `@` an, dass es sich um ein Attribut handelt..
 - **Bezeichnung**, verpflichtend. Der Key des Key/Value-Paars.
 - **`=`**, verpflichtend. Trennt die Bezeichnung vom Wert.
-- **Wert**, optional. Der Value des Key/Value-Paars. Kann weggelassen werden, wenn der Wert leer.
+- **Wert**, optional. Der Value des Key/Value-Paars. Kann weggelassen werden, wenn der Wert leer ist.
 
 ### Sub- und Super-Klassen
 
@@ -164,7 +167,7 @@ Vererbungsinformationen werden im Datenmodell gespeichert und in PlantUML darges
 
 Die PlantUML-Datei wird mittels einer [Peggy-Grammatik](src/p2o.peggy) in eine Datenstruktur überführt. Die Grammatik ist dabei so einfach gehalten, dass sie auch in der [Online-Version](https://peggyjs.org/) funktioniert.
 
-![](img/docs/datenmodell.png)
+![](img/docs/datamodel.png)
 
 Die Datenstruktur, die von der Grammatik erstellt wird, wird weitestgehend unverändert für die Templates verwendet. Es werden auf Ebene der `Ontology`, `Class` und `Predicate` die Eigenschaften "`..._names`" hinzugefügt. Bei diesen handelt es sich um eine Liste der Namen von (einmaligen) Klassen, Attributen oder Predikaten. Dies erleicht z.B. die Überprüfung auf Fehler oder die Prüfung, ob eine Klasse über ein bestimmtes Prädikat verfügt.
 
@@ -182,7 +185,7 @@ Diese Fehlermeldungen helfen dabei, Schreibfehler oder fehlende Definitionen im 
 
 ### Erweiterung des Datenmodells
 
-Möchte man, zum Beispiel zur Vereinfachung der Templates oder um den Funktionsumfang zu erweitern, den Klassen, Prädikaten oder der Ontologie weitere Eigenschaften hinzufügen, sollte das in den jeweiligen Modul-Definitionen erfolgen ([`Ontology.js`](src/Ontology.js), [`Class.js`](src/../src/Class.js) und [`Predicate.js`](src/Predicate.js)).
+Möchte man, zum Beispiel zur Vereinfachung der Templates oder um den Funktionsumfang zu erweitern, den Klassen, Prädikaten oder der Ontologie weitere Eigenschaften hinzufügen, sollte das in den jeweiligen Modul-Definitionen erfolgen ([`Ontology.js`](src/Ontology.js), [`Class.js`](src/Class.js) und [`Predicate.js`](src/Predicate.js)).
 
 ---
 
@@ -192,27 +195,27 @@ Als Templating-Engine wird [Handlebars](https://handlebarsjs.com/) verwendet. De
 
 In der Datei [`generate.js`](src/generate.js) werden die folgenden Hilfsfunktionen ([Handlebars helper](https://handlebarsjs.com/guide/#custom-helpers)) definiert:
 
-Helper         | Input        | Return   | Beschreibung
----------------|--------------|----------|----------------------------------
-**`eq`**       | v1, v2       | bool     | Prüft, ob `v1` gleich `v2` ist.
-**`ne`**       | v1, v2       | bool     | Prüft, ob `v1` ungleich `v2` ist.
-**`lt`**       | v1, v2       | bool     | Prüft, ob `v1` kleiner als `v2` ist.
-**`gt`**       | v1, v2       | bool     | Prüft, ob `v1` größer als `v2` ist.
-**`lte`**      | v1, v2       | bool     | Prüft, ob `v1` kleiner-gleich als `v2` ist.
-**`gte`**      | v1, v2       | bool     | Prüft, ob `v1` größer-gleich als `v2` ist.
-**`and`**      | v1, v2       | bool     | Logische "UND"-Prüfung zwischen `v1` und `v2`.
-**`or`**       | v1, v2       | bool     | Logische "ODER"-Prüfung zwischen `v1` und `v2`.
-**`add`**      | v1, v2       | number   | Addiert `v1` und `v2`.
-**`lower`**    | v1           | string   | Wandelt `v1` in Kleinbuchstaben um.
-**`upper`**    | v1           | string   | Wandelt `v1` in Großbuchstaben um.
-**`char1`**    | v1           | string   | Gibt das erste Zeichen von `v1` um.
-**`swap`**     | input, ...vN | string   | Sucht `input` in der Liste von `vN`s und gibt den auf `input` folgenden Wert zurück. Siehe Beispiel/Details.
-**`join`**     | coll, text, ?uniq | string | Verbindet alle (ggf. einzigartigen) Elemente von `coll` mit dem Inhalt von `text`. Notwendig um z.B. aus dem Array eines `Attribute`-Werts einen String zu erzeugen. `uniq` ist standardmäßig `false`. Siehe Beispiel/Details.
-**`sort`**     | list         | list     | Sortiert `list` alphabetisch. Es sollte sich um eine Sammlung von Strings handeln.
-**`sortByName`**         | list            | list | Sortiert `list` alphabetisch. Betrachtet dazu den Namen der Einträge. Sinnvoll für Klassen und Prädikate, deren Name direkt aus PlantUML übernommen wird.
-**`sortByAttribute`**    | list, attribute | list | Sortiert `list` alphabetisch. Betrachtet dazu den Wert des Attributs `attribute`.
-**`sortByRequirement`**  | list, order     | list | Sortiert `list` gemäß der Reihenfolge, die in `order` angegeben wurde. Betrachtet dazu die Verbindlichkeit, die als `requirement` direkt aus PlantUML übernommen wird. Siehe Beispiel/Details.
-**`filterHasAttribute`** | list, attribute | list | Gibt eine Liste zurück, die nur Elemente beinhaltet, die ein Attribut mit dem Namen `attribute` besitzt.
+Helper                   | Input        | Return   | Beschreibung
+-------------------------|--------------|----------|----------------------------------
+**`eq`**                 | v1, v2       | bool     | Prüft, ob `v1` gleich `v2` ist.
+**`ne`**                 | v1, v2       | bool     | Prüft, ob `v1` ungleich `v2` ist.
+**`lt`**                 | v1, v2       | bool     | Prüft, ob `v1` kleiner als `v2` ist.
+**`gt`**                 | v1, v2       | bool     | Prüft, ob `v1` größer als `v2` ist.
+**`lte`**                | v1, v2       | bool     | Prüft, ob `v1` kleiner-gleich als `v2` ist.
+**`gte`**                | v1, v2       | bool     | Prüft, ob `v1` größer-gleich als `v2` ist.
+**`and`**                | v1, v2       | bool     | Logische "UND"-Prüfung zwischen `v1` und `v2`.
+**`or`**                 | v1, v2       | bool     | Logische "ODER"-Prüfung zwischen `v1` und `v2`.
+**`add`**                | v1, v2       | number   | Addiert `v1` und `v2`.
+**`lower`**              | v1           | string   | Wandelt `v1` in Kleinbuchstaben um.
+**`upper`**              | v1           | string   | Wandelt `v1` in Großbuchstaben um.
+**`char1`**              | v1           | string   | Gibt das erste Zeichen von `v1` um.
+**`swap`**               | input, ...vN | string   | Sucht `input` in der Liste von `vN`s und gibt den auf `input` folgenden Wert zurück. Siehe Beispiel/Details.
+**`join`**               | coll, text, ?uniq | string | Verbindet alle (ggf. einzigartigen) Elemente von `coll` mit dem Inhalt von `text`. Notwendig um z.B. aus dem Array eines `Attribute`-Werts einen String zu erzeugen. `uniq` ist standardmäßig `false`. Siehe Beispiel/Details.
+**`sort`**               | list              | list   | Sortiert `list` alphabetisch. Es sollte sich um eine Sammlung von Strings handeln.
+**`sortByName`**         | list              | list   | Sortiert `list` alphabetisch. Betrachtet dazu den Namen der Einträge. Sinnvoll für Klassen und Prädikate, deren Name direkt aus PlantUML übernommen wird.
+**`sortByAttribute`**    | list, attribute   | list   | Sortiert `list` alphabetisch. Betrachtet dazu den Wert des Attributs `attribute`.
+**`sortByRequirement`**  | list, order       | list   | Sortiert `list` gemäß der Reihenfolge, die in `order` angegeben wurde. Betrachtet dazu die Verbindlichkeit, die als `requirement` direkt aus PlantUML übernommen wird. Siehe Beispiel/Details.
+**`filterHasAttribute`** | list, attribute   | list   | Gibt eine Liste zurück, die nur Elemente beinhaltet, die ein Attribut mit dem Namen `attribute` besitzt.
 
 
 **Beispiel/Details für `swap`**

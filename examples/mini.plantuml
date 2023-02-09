@@ -11,5 +11,12 @@ class "dcat:Catalog" <<mandatory>> {
     <<recommended>> dct:modified ~> rdfs:Literal [0..1]
     <<optional>>    dcat:catalog ~> dcat:Catalog [0..1]
 }
+    '@ rdfs:label      = Katalog
+    '@ _:internalLink  = #klasse-katalog
+    '@ rdf:about       = http://www.w3.org/ns/dcat#Catalog
+
+"dcat:Catalog" --> "*" "dcat:Catalog" : <<optional>> dct:hasPart
+    '@ rdfs:label      = Hat Teilkatalog
+    '@ _:internalLink  = katalog-hat-teilkatalog
 
 @enduml
