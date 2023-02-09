@@ -1,4 +1,4 @@
-# PlantUML-2-Ontology
+# PlantUML-To-Ontology
 
 Dieses Tool nimmt eine PlantUML-Datei und wandelt sie in eine andere Form um. Entwickelt wurde es, um aus der PlantUML-Datei, die das Klassenmodell von DCAT-AP.de beschreibt, eine möglichst vollständige Beschreibung des Application Profiles zu erstellen. 
 
@@ -12,7 +12,7 @@ Die [Dokumentation des Application Profiles](https://www.dcat-ap.de/def/dcatde/2
 
 ## Command-Line Tool
 
-"PlantUML-2-Ontology" (`p2o`) ist ein NodeJS-Kommandozeilen-Tool, das eine PlantUML-Datei einliest, an die Templates übergibt und das Ergebnis in den gewünschten Dateien speichert.
+"PlantUML-To-Ontology" (`p2o`) ist ein NodeJS-Kommandozeilen-Tool, das eine PlantUML-Datei einliest, an die Templates übergibt und das Ergebnis in den gewünschten Dateien speichert.
 
 ### Installation
 
