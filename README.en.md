@@ -9,7 +9,7 @@ This "model-driven design" approach reduces errors because changes to the model 
 
 The repository comes with examples that include an overview ([examples/dcat-ap-de.plantuml](examples/dcat-ap-de.plantuml)) for the relatively complex Application Profile DCAT-AP.de ([templates/overview.hbs](templates/overview. hbs)), the data view of all classes and properties ([`templates/classes.hbs`](templates/classes.hbs)) and the change history ([`templates/changelog.hbs`](templates/changelog.hbs)).
 
-The [Application Profile documentation](https://www.dcat-ap.de/def/dcatde/2.0/spec/) was created with this generator and [ReSpec](https://respec.org/docs/).
+The [Application Profile documentation](https://www.dcat-ap.de/def/dcatde/2.0/spec/) was created with this generator and [ReSpec](https://respec.org/docs/). The visualisations of the Application Profile were created from the same PlantUML file using "[Rich PlantUML support for Visual Studio Code](https://marketplace.visualstudio.com/items?itemName=jebbs.plantuml)".
 
 ---
 
