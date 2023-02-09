@@ -1,0 +1,15 @@
+@startuml
+
+hide class circle
+skinparam ClassBorderColor black
+skinparam ArrowColor black
+skinparam BorderColor black 
+skinparam linetype ortho
+
+class "dcat:Catalog" <<mandatory>> {
+    <<mandatory>>   dct:title    ~> rdfs:Literal [1..*]
+    <<recommended>> dct:modified ~> rdfs:Literal [0..1]
+    <<optional>>    dcat:catalog ~> dcat:Catalog [0..1]
+}
+
+@enduml
