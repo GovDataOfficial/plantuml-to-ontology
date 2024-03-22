@@ -23,7 +23,7 @@ Die folgenden Eigenschaften wurden von DCAT-AP.de hinzugefügt oder verändert:
 <br>
 
 
-|                                 | Eigenschaft  | Wertebereich      | <small>Verbind&shy;lichkeit</small> | Kard. |
+|                                 | Eigenschaft  | Wertebereich      | <small>Verbind&shy;lichkeit</small> | Mult. |
 |:--------------------------------|:-------------|:------------------|:------------------------------------|:-----:|
 {{#each predicates ~}}| [{{lookup attributes "rdfs:label"}}](#{{lookup attributes "_:internalLink"}}) | `{{name}}` | {{#if (lookup attributes "_:rangeOverride")~}}{{{lookup attributes "_:rangeOverride"}}}{{else ~}}[`{{range}}`]({{lookup attributes "rdfs:range"}}){{/if ~}} | <small>{{swap (lower (char1 requirement)) "o" "Optional" "r" "Empfohlen" "m" "Pflicht"}}</small> | `[{{join cardinality ".." true}}]` |
 {{/each}}
@@ -49,16 +49,16 @@ Die folgenden Eigenschaften wurden von DCAT-AP.de hinzugefügt oder verändert:
 > |:-------------------------|:-------------------------------------------|
 > | Wertebereich             | {{#if (lookup attributes "_:rangeOverride")}}{{{lookup attributes "_:rangeOverride"}}}{{else ~}}[`{{range}}`]({{lookup attributes "rdfs:range"}}){{/if}} |
 > | Verbindlichkeit          | {{swap (lower (char1 requirement)) "o" "Optional" "r" "Empfohlen" "m" "Pflicht"}} |
-> | Kardinalität             | `[{{join cardinality ".." true}}]`                    |
-> | Beschreibung             | {{{lookup attributes "rdfs:comment"}}} {{#if (lookup attributes "_:vocabularyLink")}}<br> [DCAT-AP.de macht Vorgaben zur zu verwendenden Codeliste.]({{lookup attributes "_:vocabularyLink"}}){{/if}} |
-{{#if has_rdfs_seeAlso ~}}
+> | Multiplizität            | `[{{join cardinality ".." true}}]`                    |
+> | Beschreibung             | {{{join (lookup attributes "rdfs:comment") "<br>"}}} {{#if (lookup attributes "_:vocabularyLink")}}<br> [DCAT-AP.de macht Vorgaben zur zu verwendenden Codeliste.]({{lookup attributes "_:vocabularyLink"}}){{/if}} |
+{{#if (lookup attributes "rdfs:seeAlso") ~}}
 > | Weiterführende Dokumentationen | {{lookup attributes "rdfs:seeAlso"}}  | 
 {{/if ~}}
-{{#if has_adms_versionNotes ~}}
-> | Änderungen zur Vorversion | {{lookup attributes "adms:versionNotes"}} | 
+{{#if (lookup attributes "adms:versionNotes") ~}}
+> | Änderungen zur Vorversion | {{join (lookup attributes "adms:versionNotes") "<br>"}} | 
 {{/if ~}}
-{{#if has_deOriginal ~}}
-> | Änderungen durch DCAT-AP.de | {{lookup attributes "_:deOriginal"}} | 
+{{#if (lookup attributes "_:deOriginal") ~}}
+> | Änderungen durch DCAT-AP.de | {{join (lookup attributes "_:deOriginal") "<br>"}} | 
 {{else}}
 
 {{/if ~}}
