@@ -25,7 +25,7 @@ Die folgenden Eigenschaften wurden von DCAT-AP.de hinzugefügt oder verändert:
 
 |                                 | Eigenschaft  | Wertebereich      | <small>Verbind&shy;lichkeit</small> | Mult. |
 |:--------------------------------|:-------------|:------------------|:------------------------------------|:-----:|
-{{#each predicates ~}}| [{{lookup attributes "rdfs:label"}}](#{{lookup attributes "_:internalLink"}}) | `{{name}}` | {{#if (lookup attributes "_:rangeOverride")~}}{{{lookup attributes "_:rangeOverride"}}}{{else ~}}[`{{range}}`]({{lookup attributes "rdfs:range"}}){{/if ~}} | <small>{{swap (lower (char1 requirement)) "o" "Optional" "r" "Empfohlen" "m" "Pflicht"}}</small> | `[{{join cardinality ".." true}}]` |
+{{#each (sortByRequirement predicates "mro") ~}}| [{{lookup attributes "rdfs:label"}}](#{{lookup attributes "_:internalLink"}}) | `{{name}}` | [`{{range}}`]({{lookup attributes "rdfs:range"}}) | <small>{{swap (lower (char1 requirement)) "o" "Optional" "r" "Empfohlen" "m" "Pflicht"}}</small> | `[{{join cardinality ".." true}}]` |
 {{/each}}
 
 
@@ -43,7 +43,7 @@ Die folgenden Eigenschaften wurden von DCAT-AP.de hinzugefügt oder verändert:
 <hr>
 <br>
 
-{{#each predicates ~}}
+{{#each (sortByRequirement predicates "mro") ~}}
 ###  {{lookup ../attributes "rdfs:label"}}: {{lookup attributes "rdfs:label"}}{{#with " {#"}}{{.}}{{/with}}{{lookup attributes "_:internalLink"}}{{#with "}"}}{{.}}{{/with}}
 > | *URI*                    | [`{{name}}`]({{lookup attributes "rdf:about"}}) |
 > |:-------------------------|:-------------------------------------------|
@@ -51,8 +51,11 @@ Die folgenden Eigenschaften wurden von DCAT-AP.de hinzugefügt oder verändert:
 > | Verbindlichkeit          | {{swap (lower (char1 requirement)) "o" "Optional" "r" "Empfohlen" "m" "Pflicht"}} |
 > | Multiplizität            | `[{{join cardinality ".." true}}]`                    |
 > | Beschreibung             | {{{join (lookup attributes "rdfs:comment") "<br>"}}} {{#if (lookup attributes "_:vocabularyLink")}}<br> [DCAT-AP.de macht Vorgaben zur zu verwendenden Codeliste.]({{lookup attributes "_:vocabularyLink"}}){{/if}} |
+{{#if (lookup attributes "skos:scopeNote") ~}}
+> | Verwendungshinweis       | {{join (lookup attributes "skos:scopeNote") "<br>"}} | 
+{{/if ~}}
 {{#if (lookup attributes "rdfs:seeAlso") ~}}
-> | Weiterführende Dokumentationen | {{lookup attributes "rdfs:seeAlso"}}  | 
+> | Weiterführende Dokumentationen | {{join (lookup attributes "rdfs:seeAlso") ", "}}  | 
 {{/if ~}}
 {{#if (lookup attributes "adms:versionNotes") ~}}
 > | Änderungen zur Vorversion | {{join (lookup attributes "adms:versionNotes") "<br>"}} | 
